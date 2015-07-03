@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wall #-}
 module HW02 where
-
+import Data.List
 -- Mastermind -----------------------------------------
 
 -- A peg can be one of six colors
@@ -34,7 +34,8 @@ countColors code = map (count code) colors
 
 -- Count number of matches between the actual code and the guess
 matches :: Code -> Code -> Int
-matches = undefined
+matches c1 c2 = sum $ map minimum $ transpose [countColors c1, countColors c2]
+--matches = undefined
 
 -- Exercise 3 -----------------------------------------
 
