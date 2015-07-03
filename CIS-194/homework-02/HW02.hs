@@ -35,15 +35,14 @@ countColors code = map (count code) colors
 -- Count number of matches between the actual code and the guess
 matches :: Code -> Code -> Int
 matches c1 c2 = sum $ zipWith min (countColors c1) (countColors c2)
---matches c1 c2 = sum $ zipWith minimum (countColors c1) (countColors c2) 
 
 -- Exercise 3 -----------------------------------------
 
 -- Construct a Move from a guess given the actual code
 getMove :: Code -> Code -> Move
---getMove secret guess = Move guess $ exactMatches secret guess $ matches secret guess
---getMove secret guess = Move guess secret 1 2
-getMove = undefined
+getMove secret guess = Move guess exact nonExact
+  where exact    = exactMatches secret guess
+        nonExact = (matches secret guess) - exact
 
 
 -- Exercise 4 -----------------------------------------
