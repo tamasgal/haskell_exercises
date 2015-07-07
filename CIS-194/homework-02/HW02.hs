@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wall #-}
 module HW02 where
-import Data.List
+--import Data.List
 -- Mastermind -----------------------------------------
 
 -- A peg can be one of six colors
@@ -48,7 +48,10 @@ getMove secret guess = Move guess exact nonExact
 -- Exercise 4 -----------------------------------------
 
 isConsistent :: Move -> Code -> Bool
-isConsistent = undefined
+isConsistent (Move c1 e m) c2
+    | (e, m) == getMatches (getMove c2 c1) = True
+    | otherwise = False
+    where getMatches (Move _ e_ m_) = (e_, m_)
 
 -- Exercise 5 -----------------------------------------
 
