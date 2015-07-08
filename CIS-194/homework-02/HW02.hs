@@ -56,12 +56,16 @@ isConsistent (Move c1 e m) c2
 -- Exercise 5 -----------------------------------------
 
 filterCodes :: Move -> [Code] -> [Code]
-filterCodes = undefined
+filterCodes _ [] = []
+filterCodes m (c:cs) = if isConsistent m c then c:(filterCodes m cs) else (filterCodes m cs)
 
 -- Exercise 6 -----------------------------------------
 
 allCodes :: Int -> [Code]
-allCodes = undefined
+allCodes n
+  | n == 0 = []
+  | n == 1 = [colors]
+  | n >= 2 = [colors]
 
 -- Exercise 7 -----------------------------------------
 
