@@ -57,7 +57,9 @@ isConsistent (Move c1 e m) c2
 
 filterCodes :: Move -> [Code] -> [Code]
 filterCodes _ [] = []
-filterCodes m (c:cs) = if isConsistent m c then c:(filterCodes m cs) else (filterCodes m cs)
+filterCodes m (c:cs) = if isConsistent m c
+                       then c:(filterCodes m cs)
+                       else (filterCodes m cs)
 
 -- Exercise 6 -----------------------------------------
 
