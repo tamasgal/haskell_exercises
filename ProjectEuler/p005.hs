@@ -1,1 +1,1 @@
-foldl (lcm) 1 [1..20]
+foldl1 (lcm) [1..20]
