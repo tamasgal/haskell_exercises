@@ -1,3 +1,5 @@
+import Data.Char (digitToInt)
+
 safeHead :: [a] -> Maybe a
 safeHead [] = Nothing
 safeHead (x:xs) = Just x
@@ -19,3 +21,11 @@ xSafeHead = safeListFuncWrapper head
 xSafeTail = safeListFuncWrapper tail
 xSafeLast = safeListFuncWrapper last
 xSafeInit = safeListFuncWrapper init
+
+asIntFold :: String -> Maybe Int
+asIntFold "" = Nothing
+asIntFold "-" = Nothing
+asIntFold ('-':xs) = asIntFold xs
+asIntFold xs = Just (foldl step 0 xs)
+               where step x y = 10 * x + digitToInt y
+
