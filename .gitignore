@@ -15,3 +15,11 @@ cabal.sandbox.config
 *.aux
 *.hp
 *.swp
+*.DS_Store
+*.ipynb_checkpoints
+*.log
+*.txt
+
+# Haskell
+
+
