@@ -8,4 +8,34 @@ import Control.Monad (forM)
 import GlobRegex (matchesGlob)
 
 
-namesMatching = undefined
+isPattern :: String -> Bool
+isPattern = any (`elem` "[*?")
+
+
+namesMatching pat
+    | not (isPattern pat) = do
+      exists <- doesNameExist pat
+      return [pat | exists]
+    | otherwise = do
+      case splitFileName pat of
+        ("", baseName) -> do
+            curDir <- getCurrentDirectory
+            listMatches curDir baseName
+        (dirName, BaseName) -> do
+            dirs <- if isPattern dirName
+                    then namesMatching (dropTrailingPathSeparator dirName)
+                    else return [dirName]
+            let listDir = if isPattern baseName
+                          then listMatches
+                          else listPlain
+            pathNames <- forM dirs $ \dir -> do
+                            baseNames <- listDir dir baseName
+                            return (map (dir </>) baseNames)
+            return (concat pathNames)
+
+doesNameExist :: FilePath -> IO Bool
+doesNameExist name = do
+    fileExists <- doesFileExists name
+    if fileExists
+        then return True
+        else doesDirectoryExists name

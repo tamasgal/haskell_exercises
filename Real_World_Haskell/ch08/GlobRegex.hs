@@ -1,7 +1,7 @@
 module GlobRegex
     (
       globToRegex
---    , matchesGlob
+    , matchesGlob
     ) where
 
 import Text.Regex.Posix ((=~))
@@ -33,3 +33,6 @@ charClass :: String -> String
 charClass (']':cs) = ']' : globToRegex' cs
 charClass (c:cs) = c : charClass cs
 charClass [] = error "unterminated character class"
+
+matchesGlob :: FilePath -> String -> Bool
+name `matchesGlob` pat = name =~ globToRegex pat
